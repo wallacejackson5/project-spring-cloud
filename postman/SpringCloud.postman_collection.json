@@ -1,0 +1,166 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SpringCloud",
+		"_postman_id": "0b4d6328-93ac-684d-1e55-8433276e2c80",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0Config",
+			"request": {
+				"url": "http://localhost:8000/project-sample-config/default",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "1Eureka",
+			"request": {
+				"url": "http://localhost:8001/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "2Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"tests[\"Status code is 200\"] === 200;\r",
+							"/*\r",
+							"    Seta as OPs dinâmicamente como variáveis globais, acrescentando o prefixo \"op_\" ao seu nome.\r",
+							"*/\r",
+							"function setToken() {\r",
+							"    var auth = jsonData.token_type + \" \" + jsonData.access_token;\r",
+							"    postman.setGlobalVariable(\"auth\", auth);\r",
+							"}\r",
+							"\r",
+							"setToken();"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "http://localhost:8002/oauth/token?grant_type=password&username=admin&password=123456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8002",
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic Y29kZXJlZjokMmEkMTAkcDlQazBmUU5BUVNlc0k0dnV2S0EwT1phbkREMg==",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "3SavePedido",
+			"request": {
+				"url": "http://localhost:9000/orders",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "{{auth}}",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"product\": \"Apple\",\n  \"price\": \"1.25\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "3BuscaPedido",
+			"request": {
+				"url": "http://localhost:9000/orders/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "4Gateware",
+			"request": {
+				"url": "http://localhost:8080/api/project-order-service/orders",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

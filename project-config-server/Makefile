@@ -1,5 +1,8 @@
+buildProject:
+	@mvn clean install -DskipTests
+
 build:
-	@mvn clean install -DskipTests && docker build -t project-config-server .
+	@docker build -t project-config-server .
 
 run:
 	@docker-compose up -d
