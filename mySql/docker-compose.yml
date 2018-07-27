@@ -1,0 +1,24 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
+    ports:
+      - 7001:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: oauth
+
+  adminer:
+    image: adminer:4
+    container_name: mysql_adminer
+    restart: always
+    ports:
+      - 7000:8080
