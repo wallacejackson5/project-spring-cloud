@@ -2,16 +2,16 @@ buildProject:
 	@mvn clean install -DskipTests
 
 build:
-	@docker build -t project-eureka-server .
+	@sudo docker build -t project-eureka-server .
 
 run:
-	@docker-compose up -d
+	@sudo docker-compose up -d
 
 stop:
-	@docker stop project-eureka-server
+	@sudo docker stop project-eureka-server
 
 sh:
-	@docker exec -it project-eureka-server /bin/sh
+	@sudo docker exec -it project-eureka-server /bin/sh
 
 log:
-	@docker logs -f project-eureka-server
+	@sudo docker logs -f project-eureka-server

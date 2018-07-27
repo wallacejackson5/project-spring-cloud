@@ -2,16 +2,16 @@ buildProject:
 	@mvn clean install -DskipTests
 
 build:
-	@docker build -t project-auth-server .
+	@sudo docker build -t project-auth-server .
 
 run:
-	@docker-compose up -d
+	@sudo docker-compose up -d
 
 stop:
-	@docker stop project-auth-server
+	@sudo docker stop project-auth-server
 
 sh:
-	@docker exec -it project-auth-server /bin/sh
+	@sudo docker exec -it project-auth-server /bin/sh
 
 log:
-	@docker logs -f project-auth-server
+	@sudo docker logs -f project-auth-server

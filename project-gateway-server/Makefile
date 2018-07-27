@@ -2,16 +2,16 @@ buildProject:
 	@mvn clean install -DskipTests
 
 build:
-	@docker build -t project-gateway-server .
+	@sudo docker build -t project-gateway-server .
 
 run:
-	@docker-compose up -d
+	@sudo docker-compose up -d
 
 stop:
-	@docker stop project-gateway-server
+	@sudo docker stop project-gateway-server
 
 sh:
-	@docker exec -it project-gateway-server /bin/sh
+	@sudo docker exec -it project-gateway-server /bin/sh
 
 log:
-	@docker logs -f project-gateway-server
+	@sudo docker logs -f project-gateway-server

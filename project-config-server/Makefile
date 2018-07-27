@@ -2,16 +2,16 @@ buildProject:
 	@mvn clean install -DskipTests
 
 build:
-	@docker build -t project-config-server .
+	@sudo docker build -t project-config-server .
 
 run:
-	@docker-compose up -d
+	@sudo docker-compose up -d
 
 stop:
-	@docker stop project-config-server
+	@sudo docker stop project-config-server
 
 sh:
-	@docker exec -it project-config-server /bin/sh
+	@sudo docker exec -it project-config-server /bin/sh
 
 log:
-	@docker logs -f project-config-server
+	@sudo docker logs -f project-config-server
