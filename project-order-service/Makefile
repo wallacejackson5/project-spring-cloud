@@ -1,8 +1,5 @@
-buildProject:
-	@mvn clean install -DskipTests
-
 build:
-	@sudo docker build -t project-order-service .
+	@mvn clean install -DskipTests && sudo docker build -t project-order-service .
 
 run:
 	@sudo docker-compose up -d

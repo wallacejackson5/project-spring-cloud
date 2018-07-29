@@ -4,26 +4,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
-import org.springframework.context.annotation.Bean;
-
-import com.example.projectgatewayserver.filters.AddResponseHeaderFilter;
-import com.example.projectgatewayserver.filters.ModifyResponseBodyFilter;
-import com.example.projectgatewayserver.filters.ModifyResponseDataStreamFilter;
-import com.example.projectgatewayserver.filters.PrefixRequestEntityFilter;
-import com.example.projectgatewayserver.filters.QueryParamPortPreFilter;
-import com.example.projectgatewayserver.filters.QueryParamServiceIdPreFilter;
-import com.example.projectgatewayserver.filters.UppercaseRequestEntityFilter;
 
 @EnableZuulProxy
 @EnableEurekaClient
 @SpringBootApplication
+//@EnableOAuth2Sso
 public class ProjectGatewayServerApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectGatewayServerApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public AddResponseHeaderFilter addResponseHeaderFilter() {
 		return new AddResponseHeaderFilter();
 	}
@@ -56,5 +48,5 @@ public class ProjectGatewayServerApplication {
 	@Bean
 	public UppercaseRequestEntityFilter modifyRequestEntityFilter() {
 		return new UppercaseRequestEntityFilter();
-	}
+	}*/
 }

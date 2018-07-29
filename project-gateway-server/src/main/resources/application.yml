@@ -1,0 +1,52 @@
+info:
+  component: Gateway
+  
+server:
+  port: 8080
+
+eureka:
+  instance:
+    hostname: localhost
+    port: 8001
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8001}/eureka/
+  server:
+wait-time-in-ms-when-sync-empty: 3000
+
+zuul:
+   prefix: /api
+   routes:
+      accounts:
+        path: /project-order-service/**
+        serviceId: project-order-service
+      auth:
+        path: /project-auth-server/**
+        serviceId: project-auth-server
+
+project-order-service:
+  ribbon:
+    eureka:
+      enabled: true
+    NIWSServerListClassName: com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList
+    ServerListRefreshInterval: 60000
+    DeploymentContextBasedVipAddresses: project-order-service
+    NIWSServerListFilterClassName: com.netflix.loadbalancer.ServerListSubsetFilter
+    ServerListSubsetFilter:
+      size: 5 
+
+security:
+  oauth2:    
+    client:
+      accessTokenUri: http://localhost:8002/api/project-order-service/oauth/token
+      userAuthorizationUri: http://localhost:8002/api/project-order-service/oauth/authorize
+      clientId: coderef
+      clientSecret: $2a$10$p9Pk0fQNAQSesI4vuvKA0OZanDD2
+    resource:
+      userInfoUri: http://localhost:8002/api/project-order-service/user
+      preferTokenInfo: false  
+  sessions: ALWAYS

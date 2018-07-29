@@ -39,7 +39,7 @@ public class QueryParamPortPreFilter extends ZuulFilter {
 		String port = request.getParameter("port");
 		try {
 			URL url = UriComponentsBuilder.fromUri(ctx.getRouteHost().toURI())
-					.port(new Integer(port))
+					.port(Integer.parseInt(port))
 					.build().toUri().toURL();
 			ctx.setRouteHost(url);
 		} catch (Exception e) {

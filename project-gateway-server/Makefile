@@ -1,8 +1,5 @@
-buildProject:
-	@mvn clean install -DskipTests
-
 build:
-	@sudo docker build -t project-gateway-server .
+	@mvn clean install -DskipTests && sudo docker build -t project-gateway-server .
 
 run:
 	@sudo docker-compose up -d

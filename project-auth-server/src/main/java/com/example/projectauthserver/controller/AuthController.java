@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class AuthController {
 
-    @RequestMapping("/user")
-    public Principal getCurrentLoggedInUser(Principal user) {
-        return user;
-    }
+	@RequestMapping("/user")
+	public Principal getCurrentLoggedInUser(Principal user) {
+		return user;
+	}
 }

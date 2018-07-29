@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "SpringCloud",
-		"_postman_id": "0b4d6328-93ac-684d-1e55-8433276e2c80",
+		"_postman_id": "c8ac3b10-6768-938c-c477-43d4e1fbf07d",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -13,7 +13,10 @@
 				"url": "http://localhost:8000/project-sample-config/default",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -24,7 +27,10 @@
 				"url": "http://localhost:8001/",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -53,39 +59,16 @@
 				}
 			],
 			"request": {
-				"url": {
-					"raw": "http://localhost:8002/oauth/token?grant_type=password&username=admin&password=123456",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8002",
-					"path": [
-						"oauth",
-						"token"
-					],
-					"query": [
-						{
-							"key": "grant_type",
-							"value": "password",
-							"equals": true,
-							"description": ""
-						},
-						{
-							"key": "username",
-							"value": "admin",
-							"equals": true,
-							"description": ""
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"equals": true,
-							"description": ""
-						}
-					],
-					"variable": []
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"username": "coderef",
+						"password": "$2a$10$p9Pk0fQNAQSesI4vuvKA0OZanDD2",
+						"saveHelperData": true,
+						"showPassword": false
+					}
 				},
+				"url": "http://localhost:8002/oauth/token",
 				"method": "POST",
 				"header": [
 					{
@@ -95,18 +78,30 @@
 					},
 					{
 						"key": "Content-Type",
-						"value": "application/json",
+						"value": "application/x-www-form-urlencoded",
 						"description": ""
 					}
 				],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"mode": "urlencoded",
+					"urlencoded": [
 						{
-							"key": "",
-							"value": "",
-							"description": "",
-							"type": "text"
+							"key": "grant_type",
+							"value": "password",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text",
+							"description": ""
 						}
 					]
 				},
@@ -145,7 +140,13 @@
 			"request": {
 				"url": "http://localhost:9000/orders/1",
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
 				"body": {},
 				"description": ""
 			},
@@ -154,10 +155,24 @@
 		{
 			"name": "4Gateware",
 			"request": {
-				"url": "http://localhost:8080/api/project-order-service/orders",
+				"url": "http://localhost:8080/api/project-order-service/orders/1",
 				"method": "GET",
-				"header": [],
-				"body": {},
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic Y29kZXJlZjokMmEkMTAkcDlQazBmUU5BUVNlc0k0dnV2S0EwT1phbkREMg==",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"product\": \"Apple\",\n  \"price\": \"1.25\"\n}"
+				},
 				"description": ""
 			},
 			"response": []
