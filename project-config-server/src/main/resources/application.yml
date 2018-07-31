@@ -9,3 +9,8 @@ spring:
           uri: https://github.com/wallacejackson/project-spring-cloud.git
           search-paths: project-config-server/src/main/resources/configs
           default-label: master
+security:
+  user:
+    name: configUser
+    password: configPassword
+    role: SYSTEM
