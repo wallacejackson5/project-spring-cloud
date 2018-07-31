@@ -37,16 +37,4 @@ project-order-service:
     DeploymentContextBasedVipAddresses: project-order-service
     NIWSServerListFilterClassName: com.netflix.loadbalancer.ServerListSubsetFilter
     ServerListSubsetFilter:
-      size: 5 
-
-security:
-  oauth2:    
-    client:
-      accessTokenUri: http://localhost:8002/api/project-order-service/oauth/token
-      userAuthorizationUri: http://localhost:8002/api/project-order-service/oauth/authorize
-      clientId: coderef
-      clientSecret: $2a$10$p9Pk0fQNAQSesI4vuvKA0OZanDD2
-    resource:
-      userInfoUri: http://localhost:8002/api/project-order-service/user
-      preferTokenInfo: false  
-  sessions: ALWAYS
+      size: 5
