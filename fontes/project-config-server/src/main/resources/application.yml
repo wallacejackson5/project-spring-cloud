@@ -7,7 +7,7 @@ spring:
       server:
         git:
           uri: https://github.com/wallacejackson/project-spring-cloud.git
-          search-paths: project-config-server/src/main/resources/configs
+          search-paths: fontes/project-config-server/src/main/resources/configs
           default-label: master
 security:
   user:
