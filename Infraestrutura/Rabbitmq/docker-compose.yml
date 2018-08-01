@@ -9,6 +9,7 @@ services:
     restart: always
     ports:
       - 7002:15672
+      - 7003:5672
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
