@@ -25,13 +25,13 @@ security:
 
 spring:
     datasource:
-        data: classpath:/sql/data.sql
         driver-class-name: com.mysql.jdbc.Driver
         password: '1234'
         platform: mysql
-        schema: classpath:/sql/schema.sql
         url: jdbc:mysql://localhost:7001/oauth?verifyServerCertificate=false&useSSL=false&requireSSL=false
         username: root
+        data: classpath:/sql/data.sql
+        schema: classpath:/sql/schema.sql
     jpa:
         database-platform: org.hibernate.dialect.MySQLDialect
         generate-ddl: false
