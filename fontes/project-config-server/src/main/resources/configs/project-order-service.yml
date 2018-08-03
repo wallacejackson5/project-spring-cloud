@@ -22,7 +22,7 @@ spring:
         data: classpath:/sql/data.sql
         schema: classpath:/sql/schema.sql
     jpa:
-        database-platform: org.hibernate.dialect.MySQLDialect
+        database-platform: org.hibernate.dialect.MySQL5Dialect
         generate-ddl: false
         hibernate:
             ddl-auto: create
