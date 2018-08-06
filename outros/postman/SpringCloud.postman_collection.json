@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "SpringCloud",
-		"_postman_id": "c8ac3b10-6768-938c-c477-43d4e1fbf07d",
+		"_postman_id": "9913a430-dd79-57d3-1ffb-6dc7006a03ae",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -147,13 +147,16 @@
 						"description": ""
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "4Gateware",
+			"name": "4Gateway",
 			"request": {
 				"url": "http://localhost:8080/api/project-order-service/orders/1",
 				"method": "GET",
@@ -173,6 +176,17 @@
 					"mode": "raw",
 					"raw": "{\n  \"product\": \"Apple\",\n  \"price\": \"1.25\"\n}"
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "5GatewayFeign",
+			"request": {
+				"url": "http://localhost:8080/api/project-feign-service/v1/order/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"description": ""
 			},
 			"response": []
