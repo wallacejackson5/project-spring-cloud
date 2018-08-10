@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+
+  filebeat:
+    image: prima/filebeat:6.2.3
+    container_name: filebeat_elk
+    network_mode: host
+    volumes:
+       - ./config/filebeat.yml:/filebeat.yml

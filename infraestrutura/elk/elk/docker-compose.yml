@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+
+  elk:
+    image: sebp/elk:632
+    container_name: elk
+    ports:
+      - "7010:5601"
+      - "7011:9200"
+      - "7012:9300"
+      - "7013:5044"
+      
