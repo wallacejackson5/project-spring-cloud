@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: ${MYSQL_IMAGE_NAME}
+    container_name: ${MYSQL_CONTAINER_NAME}
+    restart: always
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    network_mode: ${NETWORK_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    env_file:
+      - .env
+    ports:
+      - "${MYSQL_TCP_PORT}:${MYSQL_TCP_PORT}"
+    command: --default-authentication-plugin=mysql_native_password
+
+  webapp:
+    image: ${IMAGE_NAME}
+    container_name: ${CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${PROFILE}
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+      - ~/.m2/repository:/root/.m2/repository
+    network_mode: ${NETWORK_NAME}
+    ports:
+      - "${EXPOSE_PORT}:${EXPOSE_PORT}"

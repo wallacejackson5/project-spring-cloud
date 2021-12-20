@@ -1,0 +1,1 @@
+curl -X POST 'http://localhost:9090/__admin/mappings' --header 'Content-Type: application/json'  --data-raw '{"request":{"method":"GET","url":"/v1/test?param=test"},"response":{"body":"{\"param1\":\"testValue\"}","status":200,"headers":{"Content-Type":"application/json"}}}'

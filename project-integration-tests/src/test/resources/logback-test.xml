@@ -1,0 +1,43 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>return message.contains("Request --> curl -X POST 'http://localhost:9090/__admin/mappings'");</expression>
+            </evaluator>
+            <OnMismatch>ACCEPT</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
+        <encoder>
+            <pattern>%magenta(%d{HH:mm:ss.SSS}) %yellow([%10.10thread]) %highlight(%5.5level) %cyan(%-40.40logger{16}) %red(-) %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="WIREMOCK_STUB_MAPPINGS" class="ch.qos.logback.core.FileAppender">
+        <file>./scripts/wiremock-init-data.log</file>
+        <append>false</append>
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>return message.contains("Request --> curl -X POST 'http://localhost:9090/__admin/mappings'");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%replace(%msg){'Request --> ', ''}%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <root level="debug">
+        <appender-ref ref="WIREMOCK_STUB_MAPPINGS"/>
+    </root>
+
+    <logger name="org.testcontainers" level="INFO"/>
+    <logger name="com.github.dockerjava" level="WARN"/>
+    <logger name="io.restassured.internal" level="INFO"/>
+    <logger name="org.apache.http" level="INFO"/>
+    <logger name="cucumber.steps" level="DEBUG"/>
+</configuration>

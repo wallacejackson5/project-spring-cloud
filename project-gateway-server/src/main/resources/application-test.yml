@@ -1,0 +1,58 @@
+server:
+  port: 8005
+
+spring:
+  application:
+    name: project-gateway-server
+  cloud:
+    gateway:
+      routes:
+        - id: uaa
+          uri: http://project-sso-server:8002
+          predicates:
+            - Method=GET,POST
+            - Path=/uaa/**
+        - id: resource
+          uri: lb://PROJECT-RESOURCES
+          predicates:
+            - Path=/project-resources/resource
+        - id: eureka
+          uri: lb://PROJECT-EUREKA-SERVER
+          predicates:
+            - Path=/project-eureka-server
+          filters:
+            - AddRequestHeader=Authorization, Basic dXNlcjplOTU4Yzk4Ny01NjhjLTQ4MzYtOGI3Yi01OGI0NjkxNGQwNzA=
+        - id: example
+          uri: https://example.org
+          predicates:
+            - Path=/
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddResponseHeader=X-Response-Default-Test, Default-Test
+      default-filters:
+        - TokenRelay=
+        - AddResponseHeader=Access-Control-Allow-Credentials, true
+  security:
+    user:
+      name: user
+      password: efbdc865-e20a-4ce8-a022-873fc8174555
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.route: WARN
+    reactor.netty.resources: DEBUG
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health

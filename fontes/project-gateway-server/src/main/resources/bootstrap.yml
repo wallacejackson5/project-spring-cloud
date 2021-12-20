@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: project-gateway-server
-  cloud:
-    config:
-      uri: http://localhost:8000
-      username: configUser
-      password: configPassword

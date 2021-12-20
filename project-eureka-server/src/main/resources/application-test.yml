@@ -1,0 +1,26 @@
+server:
+  servlet:
+    contextPath: /
+
+logging:
+  level:
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud.netflix: DEBUG
+
+eureka:
+  instance:
+    hostname: localhost
+  server:
+    hostname: localhost
+    port: 8001
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://user:e958c987-568c-4836-8b7b-58b46914d070@${eureka.server.hostname}:${eureka.server.port}/${spring.application.name}/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health

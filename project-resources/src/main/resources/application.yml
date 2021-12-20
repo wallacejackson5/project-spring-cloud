@@ -1,0 +1,44 @@
+server:
+  port: 8007
+  servlet:
+    contextPath: /
+
+spring:
+  application:
+    name: project-resources
+  security:
+    user:
+      name: user
+      password: 6a9b8840-8f74-4913-bdc3-7bed517a2b2f
+  cloud.config.enabled: false
+
+logging:
+  level:
+    root: INFO
+    com.netflix.discovery: WARN
+    org.apache.catalina: WARN
+    org.springframework: INFO
+    org.springframework.cloud: WARN
+    org.springframework.web: WARN
+    org.springframework.core.codec.StringDecoder: WARN
+    org.springframework.security: WARN
+    org.springframework.web.HttpLogging: WARN
+    reactor.netty.resources: WARN
+    sun.net.www.protocol.http: WARN
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints.web.exposure.include: info, health, metrics
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /swagger-ui.html #http://server:port/context-path/swagger-ui.html
+    configUrl: /api-docs/swagger-config
+  api-docs:
+    path: /api-docs #http://server:port/context-path/api-docss

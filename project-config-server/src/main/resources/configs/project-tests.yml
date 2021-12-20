@@ -1,0 +1,18 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: project-tests
+  webflux:
+    base-path: /${spring.application.name}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://project-sso-server:8002/uaa/token_keys
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO

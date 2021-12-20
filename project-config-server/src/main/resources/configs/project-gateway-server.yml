@@ -1,0 +1,87 @@
+server:
+  port: 8005
+  servlet:
+    contextPath: /
+
+spring:
+  application:
+    name: project-gateway-server
+  cloud:
+    gateway:
+      routes:
+        - id: uaa
+          uri: http://project-sso-server:8002
+          predicates:
+            - Method=GET,POST
+            - Path=/uaa/**
+        - id: resource
+          uri: lb://PROJECT-RESOURCES
+          predicates:
+            - Path=/project-resources/**
+        - id: tests
+          uri: lb://PROJECT-TESTS
+          predicates:
+            - Path=/project-tests/**
+        - id: eureka
+          uri: lb://PROJECT-EUREKA-SERVER
+          predicates:
+            - Path=/project-eureka-server
+          filters:
+            - AddRequestHeader=Authorization, Basic dXNlcjplOTU4Yzk4Ny01NjhjLTQ4MzYtOGI3Yi01OGI0NjkxNGQwNzA=
+        - id: example
+          uri: https://example.org
+          predicates:
+            - Path=/
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddResponseHeader=X-Response-Default-Test, Default-Test
+      default-filters:
+        - TokenRelay=
+        - AddResponseHeader=Access-Control-Allow-Credentials, true
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20
+        - name: CircuitBreaker
+          args:
+            name: sampleSlowCircuitBreaker
+            fallbackUri: forward:/fallback/default
+  redis:
+    host: redis-machine
+    port: 7001
+  security:
+    user:
+      name: user
+      password: efbdc865-e20a-4ce8-a022-873fc8174555
+    oauth2:
+      client:
+        registration:
+          web:
+            provider: uaa
+            client-id: web
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile, email, resource.read
+          gateway:
+            provider: uaa
+            client-id: gateway
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile, email, resource.read
+        provider:
+          uaa:
+            authorization-uri: http://localhost:8002/uaa/oauth/authorize
+            token-uri: http://project-sso-server:8002/uaa/oauth/token
+            user-info-uri: http://project-sso-server:8002/uaa/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: http://project-sso-server:8002/uaa/token_keys
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.cloud.gateway: DEBUG

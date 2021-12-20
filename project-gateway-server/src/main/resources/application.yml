@@ -1,0 +1,99 @@
+server:
+  port: 8005
+
+debug: false
+
+spring:
+  application:
+    name: project-gateway-server
+  webflux:
+    base-path: /
+  cloud:
+    config.enabled: false
+    gateway:
+      routes:
+        - id: uaa
+          uri: http://project-sso-server:8002
+          predicates:
+            - Method=GET,POST
+            - Path=/uaa/**
+        - id: resource
+          uri: lb://PROJECT-RESOURCES
+          predicates:
+            - Path=/project-resources/**
+        - id: tests
+          uri: lb://PROJECT-TESTS
+          predicates:
+            - Path=/project-tests/**
+        - id: eureka
+          uri: lb://PROJECT-EUREKA-SERVER
+          predicates:
+            - Path=/project-eureka-server
+          filters:
+            - AddRequestHeader=Authorization, Basic dXNlcjplOTU4Yzk4Ny01NjhjLTQ4MzYtOGI3Yi01OGI0NjkxNGQwNzA=
+        - id: example
+          uri: https://example.org
+          predicates:
+            - Path=/
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AddResponseHeader=X-Response-Default-Test, Default-Test
+      default-filters:
+        - TokenRelay=
+        - AddResponseHeader=Access-Control-Allow-Credentials, true
+  security:
+    user:
+      name: user
+      password: efbdc865-e20a-4ce8-a022-873fc8174555
+    oauth2:
+      client:
+        registration:
+          web:
+            provider: uaa
+            client-id: web
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile, email, resource.read
+          gateway:
+            provider: uaa
+            client-id: gateway
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile, email, resource.read
+        provider:
+          uaa:
+            authorization-uri: http://localhost:8002/uaa/oauth/authorize
+            token-uri: http://project-sso-server:8002/uaa/oauth/token
+            user-info-uri: http://project-sso-server:8002/uaa/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: http://project-sso-server:8002/uaa/token_keys
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.web: WARN
+    org.springframework.web.HttpLogging: WARN
+    org.springframework.security: WARN
+    org.springframework.security.oauth2: WARN
+    org.springframework.core.codec.StringDecoder: WARN
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.route: WARN
+    org.springframework.boot.autoconfigure: WARN
+    org.springframework.boot.autoconfigure.logging: WARN
+    reactor.netty.resources: DEBUG
+    sun.net.www.protocol.http: WARN
+    com.netflix.discovery: WARN
+
+eureka:
+  client:
+    enabled: false
+    registerWithEureka: false
+    fetchRegistry: false
+
+management:
+  endpoints.web.exposure.include: info, health, metrics

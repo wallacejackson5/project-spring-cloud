@@ -1,0 +1,25 @@
+server:
+  port: 8008
+
+spring:
+  application:
+    name: project-tests
+  webflux:
+    base-path: /
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health

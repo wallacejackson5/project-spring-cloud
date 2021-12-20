@@ -1,0 +1,22 @@
+# Start with a base image containing Java runtime
+FROM mariadb:10.6.0-focal as dev
+
+RUN cat > /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "[mysqld]" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "character-set-server = utf8" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "collation-server = utf8_bin" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "default-storage-engine = Innodb" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "innodb_file_per_table = 1" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "innodb_file_format = Barracuda" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "innodb_file_per_table = ON" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "innodb_log_file_size = 256M" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "innodb_page_size = 32K" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "max_allowed_packet = 256M" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "explicit_defaults_for_timestamp = true" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "max_connections = 3600" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "lower_case_table_names = 1" >> /etc/mysql/mariadb.conf.d/mysql.cnf \
+    && echo "sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES" >> /etc/mysql/mariadb.conf.d/mysql.cnf
+
+RUN cat > /docker-entrypoint-initdb.d/init.sql \
+    && echo "CREATE DATABASE db;" >> /docker-entrypoint-initdb.d/init.sql \
+    && echo "GRANT ALL PRIVILEGES ON db.* TO user;" >> /docker-entrypoint-initdb.d/init.sql

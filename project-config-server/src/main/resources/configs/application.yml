@@ -1,0 +1,39 @@
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.web: WARN
+    org.springframework.web.HttpLogging: WARN
+    org.springframework.security: WARN
+    org.springframework.security.oauth2: WARN
+    org.springframework.core.codec.StringDecoder: WARN
+    reactor.netty.resources: WARN
+    sun.net.www.protocol.http: WARN
+    com.netflix.discovery: WARN
+  file:
+    name: /var/log/app.log
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    leaseRenewalIntervalInSeconds: 3
+    leaseExpirationDurationInSeconds: 9
+  server:
+    hostname: project-eureka-server
+    port: 8001
+    evictionIntervalTimerInMs: 10000
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://user:e958c987-568c-4836-8b7b-58b46914d070@${eureka.server.hostname}:${eureka.server.port}/${eureka.server.hostname}/eureka
+
+management:
+  endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: always

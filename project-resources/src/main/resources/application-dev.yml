@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: project-resources
+  cloud:
+    config:
+      enabled: true
+      fail-fast: true
+  config:
+    import: optional:configserver:http://user:bdec5578-6c9b-4ae8-9fd5-3e77ccd504ad@project-config-server:8000/project-config-server/

@@ -1,0 +1,25 @@
+server:
+  port: 8007
+  servlet:
+    contextPath: /
+
+spring:
+  application:
+    name: project-resources
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health

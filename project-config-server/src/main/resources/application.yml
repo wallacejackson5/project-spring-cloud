@@ -1,0 +1,40 @@
+server:
+  port: 8000
+  servlet:
+    contextPath: /${spring.application.name}
+
+spring:
+  application:
+    name: project-config-server
+  security:
+    user:
+      name: user
+      password: bdec5578-6c9b-4ae8-9fd5-3e77ccd504ad
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configs
+    loadbalancer:
+      ribbon.enabled: false
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  profiles:
+    active: native
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.web: WARN
+    org.springframework.security: WARN
+    org.springframework.cloud.config.server: DEBUG
+  file:
+    name: /var/log/app.log
+
+management:
+  endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: always

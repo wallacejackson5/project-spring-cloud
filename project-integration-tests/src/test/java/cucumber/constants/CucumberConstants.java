@@ -1,0 +1,22 @@
+package cucumber.constants;
+
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class CucumberConstants {
+
+  public static final String WIREMOCK_SERVICE_NAME = "wiremock";
+  public static final Integer WIREMOCK_SERVICE_PORT = 9090;
+  public static final String SERVICE_NAME = "wiremock";
+  public static final Integer SERVICE_PORT = 9090;
+
+  public static final String HEADER_REQUEST_TRACE_ID = "requestTraceId";
+  public static final String HEADER_REQUEST_COUNTRY = "country";
+  public static final String HEADER_REQUEST_AUTHORIZATION = "Authorization";
+  public static final String MOCKED_AUTHORIZATION =
+      "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2IyYmlhbWdidXNzaXQxLmIyY2xvZ2luLmNvbS9iZjZkMDlhZS1mOWFmLTRlYWItYjJkZi0zYTU1ZjI4Mjg0NzcvdjIuMC8iLCJleHAiOjE2MDM4MzIyMTcsIm5iZiI6MTYwMzgyODYxNywiYXVkIjoiNzBlYjM2YjEtMjg5NC00ZjFkLWIwOGEtNGExZjk4MmEzOGRhIiwic3ViIjoiYWRmZjBjNGYtMGQ2Zi00ZjYwLWE2YjktMjVkOTNkZWI4YTQyIiwic2lnbkluTmFtZXMuZW1haWxBZGRyZXNzIjoiZW1haWxAZW1haWwuY29tIiwic2lnbkluTmFtZXMucGhvbmVOdW1iZXIiOiIrNTUzMTk5OTk5OTk5OSIsIm5hbWUiOiJOYW1lIiwiZ2l2ZW5fbmFtZSI6IkdpdmVuIE5hbWUiLCJmYW1pbHlfbmFtZSI6ImZhbWlseSBuYW1lIiwiZXh0ZW5zaW9uX2lzTWlncmF0ZWQiOnRydWUsImV4dGVuc2lvbl9hY2NvdW50aWRzIjoiWzEzMTMxMzEzMTVdIiwiY291bnRyeSI6IkNPIiwiZXh0ZW5zaW9uX3RuY2FjY2VwdGVkZGF0ZXRpbWUiOjE2MDMyODE2MzgsImFwcCI6ImIyYiIsInRpZCI6ImJmNmQwOWFlLWY5YWYtNGVhYi1iMmRmLTNhNTVmMjgyODQ3NyIsInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsImF6cCI6IjcwZWIzNmIxLTI4OTQtNGYxZC1iMDhhLTRhMWY5ODJhMzhkYSIsInZlciI6IjEuMCIsImlhdCI6MTYwMzgyODYxN30.hnDU1TE0Hw9m2WfRP7KxH5c86k6pYM2d_DhnqxXH33C1Ue4eDgtTtzpzXl7KsJYMcXAfaxMU7RwdorrjE5iljlg11cHjcRFS2EOt5Y7yFekdGreFCY3IbL1JmlWeLuJHwBpQKsVfbmaHw3YNuk8CNe1ZuRYgN_zBAvf_eVuRD1_uDzw5muFd42kA7gOsu4SvCJi5yNJ-r3E_1ydjzcVMl5yr0V-3D_qXgap52e_fcoCg7nlYi9oMZbbyMywuIBUCySVCuUTGkQxkwjgmDKBE7S7vhx5eeyUVQPF-Y41flZfn-v3hXUbASK_yeEn1x5xu4zLcmT2Yr3t3geph1aq3tg";
+
+  public static final String LOG_REQUEST_FORMAT =
+      "Request --> curl -X %s '%s' --header 'Content-Type: application/json' %s --data-raw '%s'";
+}

@@ -1,0 +1,18 @@
+server:
+  port: 0
+  servlet:
+    contextPath: /${spring.application.name}
+
+spring:
+  application:
+    name: project-resources
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://project-sso-server:8002/uaa/token_keys
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO

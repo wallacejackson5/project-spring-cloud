@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProfile name="!prod">
+        <springProperty scope="context" name="appname" source="spring.application.name"/>
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%clr(%d{HH:mm:ss}){cyan} %clr(%-5p) %clr(---){faint} %clr([%15.15t]){yellow}
+                    %clr(%-40.40logger{10}){blue} %clr(:){red} %clr(%m){faint}%n
+                </pattern>
+                <charset>utf-8</charset>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <springProfile name="native | dev | sit | tst | prod">
+        <springProperty scope="context" name="appname" source="spring.application.name"/>
+        <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>elk-machine:7004</destination>
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <mdc/>
+                    <context/>
+                    <logLevel/>
+                    <loggerName/>
+                    <pattern>
+                        <pattern>
+                            {
+                            "level": "%level",
+                            "env": "${spring.profiles.active}",
+                            "thread": "%thread",
+                            "message": "%message"
+                            }
+                        </pattern>
+                    </pattern>
+
+                    <threadName/>
+                    <message/>
+                    <logstashMarkers/>
+                    <stackTrace/>
+
+                </providers>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="LOGSTASH"/>
+        </root>
+    </springProfile>
+</configuration>
